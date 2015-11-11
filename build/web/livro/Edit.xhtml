@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditLivroTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditLivroLabel_isbn}" for="isbn" />
+                    <h:inputText id="isbn" value="#{livroController.selected.isbn}" title="#{bundle.EditLivroTitle_isbn}" required="true" requiredMessage="#{bundle.EditLivroRequiredMessage_isbn}"/>
+                    <h:outputLabel value="#{bundle.EditLivroLabel_nome}" for="nome" />
+                    <h:inputText id="nome" value="#{livroController.selected.nome}" title="#{bundle.EditLivroTitle_nome}" required="true" requiredMessage="#{bundle.EditLivroRequiredMessage_nome}"/>
+                    <h:outputLabel value="#{bundle.EditLivroLabel_autores}" for="autores" />
+                    <h:inputText id="autores" value="#{livroController.selected.autores}" title="#{bundle.EditLivroTitle_autores}" required="true" requiredMessage="#{bundle.EditLivroRequiredMessage_autores}"/>
+                    <h:outputLabel value="#{bundle.EditLivroLabel_editora}" for="editora" />
+                    <h:inputText id="editora" value="#{livroController.selected.editora}" title="#{bundle.EditLivroTitle_editora}" required="true" requiredMessage="#{bundle.EditLivroRequiredMessage_editora}"/>
+                    <h:outputLabel value="#{bundle.EditLivroLabel_ano}" for="ano" />
+                    <h:inputText id="ano" value="#{livroController.selected.ano}" title="#{bundle.EditLivroTitle_ano}" required="true" requiredMessage="#{bundle.EditLivroRequiredMessage_ano}"/>
+                    <h:outputLabel value="#{bundle.EditLivroLabel_situacao}" for="situacao" />
+                    <h:inputText id="situacao" value="#{livroController.selected.situacao}" title="#{bundle.EditLivroTitle_situacao}" />
+                </h:panelGrid>
+                <h:commandLink action="#{livroController.update}" value="#{bundle.EditLivroSaveLink}"/>
+                <br />
+                <br />
+                <br />
+                <br />
+                <h:commandLink action="#{livroController.prepareList}" value="#{bundle.EditLivroShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditLivroIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
