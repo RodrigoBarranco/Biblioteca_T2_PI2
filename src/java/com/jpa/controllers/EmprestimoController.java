@@ -127,6 +127,10 @@ public class EmprestimoController implements Serializable {
     public String devolver() {
         try {
             
+            // Selecionar o livro a ser devolvido.
+            // OU devolver todos
+            // Alterar a data de entrega, alterar a disponibilidade do livro
+            // Calcular se existe atraso, apresentar mensagem de livro devolvido com atraso.
             
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("resources/Bundle").getString("EmprestimoDevolvido"));
             return prepareCreate();
