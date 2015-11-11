@@ -9,6 +9,7 @@ import com.jpa.sessions.LivroFacade;
 import java.io.Serializable;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -44,6 +45,20 @@ public class LivroController implements Serializable {
 
     private LivroFacade getFacade() {
         return ejbFacade;
+    }
+    
+    public String getSituacaoString(int situacao)
+    {
+        String aux = "";
+        if(situacao == 0)
+        {
+            aux = SituacaoLivro.DISPONIVEL.toString();
+        }
+        else
+        {
+            aux = SituacaoLivro.EMPRESTADO.toString();
+        }
+        return aux;
     }
 
     public PaginationHelper getPagination() {
@@ -190,6 +205,11 @@ public class LivroController implements Serializable {
 
     public SelectItem[] getItemsAvailableSelectOne() {
         return getSelectItemsLivro(ejbFacade.findAll(), true);
+    }
+    
+    public SelectItem[] getLivrosDisponiveis() {
+        // EXPRESSÃO LAMBDA
+        return getSelectItemsLivro(ejbFacade.findAll().stream().filter(l -> l.getSituacao()==0).collect(Collectors.toList()), true);
     }
     
     public static SelectItem[] getSelectItemsLivro(List<Livro> entities, boolean selectOne) {

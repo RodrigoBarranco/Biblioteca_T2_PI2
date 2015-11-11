@@ -22,7 +22,7 @@
                     </h:selectOneMenu>
                     <h:outputLabel value="#{bundle.CreateEmprestimoLabel_livro}" for="livro" />
                     <h:selectOneMenu id="livro" value="#{emprestimoController.selected.livro}" title="#{bundle.CreateEmprestimoTitle_livro}" required="true" requiredMessage="#{bundle.CreateEmprestimoRequiredMessage_livro}">
-                        <f:selectItems value="#{livroController.itemsAvailableSelectOne}"/>
+                        <f:selectItems value="#{livroController.getLivrosDisponiveis()}"/>
                     </h:selectOneMenu>
                 </h:panelGrid>
                 <br />

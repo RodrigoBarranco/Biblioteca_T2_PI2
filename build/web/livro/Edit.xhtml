@@ -25,8 +25,6 @@
                     <h:inputText id="editora" value="#{livroController.selected.editora}" title="#{bundle.EditLivroTitle_editora}" required="true" requiredMessage="#{bundle.EditLivroRequiredMessage_editora}"/>
                     <h:outputLabel value="#{bundle.EditLivroLabel_ano}" for="ano" />
                     <h:inputText id="ano" value="#{livroController.selected.ano}" title="#{bundle.EditLivroTitle_ano}" required="true" requiredMessage="#{bundle.EditLivroRequiredMessage_ano}"/>
-                    <h:outputLabel value="#{bundle.EditLivroLabel_situacao}" for="situacao" />
-                    <h:inputText id="situacao" value="#{livroController.selected.situacao}" title="#{bundle.EditLivroTitle_situacao}" />
                 </h:panelGrid>
                 <h:commandLink action="#{livroController.update}" value="#{bundle.EditLivroSaveLink}"/>
                 <br />
