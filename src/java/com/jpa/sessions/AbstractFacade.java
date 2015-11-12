@@ -5,8 +5,11 @@
  */
 package com.jpa.sessions;
 
+import com.jpa.entities.Emprestimo;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.Predicate;
 
 /**
  *
@@ -40,6 +43,17 @@ public abstract class AbstractFacade<T> {
     public List<T> findAll() {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(entityClass));
+        return getEntityManager().createQuery(cq).getResultList();
+    }
+    
+    public List<T> findAllDevolver(Emprestimo e) {
+        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
+        
+        Predicate predicate = getEntityManager().getCriteriaBuilder().isNull(cq.from(entityClass).get("dataentrega"));
+        cq.where(predicate);
+        
+        cq.select(cq.from(entityClass));
+        
         return getEntityManager().createQuery(cq).getResultList();
     }
 

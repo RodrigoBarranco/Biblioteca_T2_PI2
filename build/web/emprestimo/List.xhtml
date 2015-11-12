@@ -56,12 +56,6 @@
                                 <f:convertDateTime pattern="MM/dd/yyyy" />
                             </h:outputText>
                         </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="&nbsp;"/>
-                            </f:facet>
-                            <h:commandLink action="#{emprestimoController.destroy}" value="#{bundle.ListEmprestimoDestroyLink}"/>
-                        </h:column>
                     </h:dataTable>
                 </h:panelGroup>
                 <br />
@@ -69,6 +63,9 @@
                 <br />
                 <br />
                 <h:commandLink action="#{emprestimoController.prepareListDevolverUsuario}" value="#{bundle.ListEmprestimoUpdateLink}"/>
+                <br />
+                <br />
+                <h:commandLink action="#{emprestimoController.prepareListEmprestimosCliente}" value="Consultar empréstimos do cliente"/>
                 <br />
                 <br />
                 <h:link outcome="/index" value="#{bundle.ListEmprestimoIndexLink}"/>

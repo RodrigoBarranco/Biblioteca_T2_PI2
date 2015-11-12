@@ -29,6 +29,7 @@ public class EmprestimoController implements Serializable {
 
     private Emprestimo current;
     private DataModel items = null;
+    private boolean devolucao = false;
     @EJB
     private com.jpa.sessions.EmprestimoFacade ejbFacade;
     private PaginationHelper pagination;
@@ -62,11 +63,24 @@ public class EmprestimoController implements Serializable {
                 // Adicionar condicionais de acordo com a página
                 @Override
                 public DataModel createPageDataModel() {
-                    return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                    if(!devolucao)
+                    {
+                        return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
+                    }
+                    else
+                    {
+                        return new ListDataModel(getFacade().findAllDevolver(current));
+                    }
                 }
             };
         }
         return pagination;
+    }
+    
+    public void changeCliente()
+    {
+        devolucao = true;
+        recreateModel(); // items = null
     }
     
     public String getNomeLivro(Livro l)
@@ -80,6 +94,7 @@ public class EmprestimoController implements Serializable {
     }
 
     public String prepareList() {
+        devolucao = false;
         recreateModel();
         return "List";
     }
@@ -176,9 +191,15 @@ public class EmprestimoController implements Serializable {
     }
     
     public String prepareListDevolverUsuario() {
-        recreateModel();
-        // Trazer somente os livros que estão emprestados com o usuário.
+        devolucao = true;
+        recreateModel(); // items = null
         return "ListDevolver";
+    }
+    
+    public String prepareListEmprestimosCliente() {
+        devolucao = false;
+        recreateModel(); // items = null
+        return "ListEmprestimosCliente";
     }
     
     // Calcula se tem atraso na devolução de um livro emprestado

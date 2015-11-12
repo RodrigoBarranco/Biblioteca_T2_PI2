@@ -7,6 +7,7 @@ package com.jpa.sessions;
 
 import com.jpa.entities.Emprestimo;
 import com.jpa.entities.Livro;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

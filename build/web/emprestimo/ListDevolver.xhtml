@@ -14,13 +14,6 @@
                 <h:panelGroup id="messagePanel" layout="block">
                     <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
                 </h:panelGroup>
-                
-                <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateEmprestimoLabel_cliente}" for="cliente" />
-                    <h:selectOneMenu id="cliente" value="#{emprestimoController.selected.cliente}" title="#{bundle.CreateEmprestimoTitle_cliente}" required="true" requiredMessage="#{bundle.CreateEmprestimoRequiredMessage_cliente}">
-                        <f:selectItems value="#{clienteController.itemsAvailableSelectOne}"/>
-                    </h:selectOneMenu>
-                </h:panelGrid>
                 <br />
                 <br />
                 <h:outputText escape="false" value="#{bundle.ListEmprestimoEmpty}" rendered="#{emprestimoController.items.rowCount == 0}"/>
