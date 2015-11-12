@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -57,6 +58,8 @@ public class EmprestimoController implements Serializable {
                     return getFacade().count();
                 }
 
+                // Preenche a lista de items
+                // Adicionar condicionais de acordo com a página
                 @Override
                 public DataModel createPageDataModel() {
                     return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
@@ -86,6 +89,12 @@ public class EmprestimoController implements Serializable {
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
         return "View";
     }
+    
+    public String prepareViewDevolver() {
+        current = (Emprestimo) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        return "ViewDevolver";
+    }
 
     public String prepareCreate() {
         current = new Emprestimo();
@@ -99,6 +108,7 @@ public class EmprestimoController implements Serializable {
         return "Devolver";
     }
 
+    // ALTERAR PARA RETIRAR AO INVÉS DE CREATE
     public String create() {
         try {
             
@@ -111,8 +121,10 @@ public class EmprestimoController implements Serializable {
 
                 // CALCULAR DATA DE ENTREGA PREVISTA
                 current.setDataprevista(calcularDataDevolucao());
+                
+                current.getLivro().setSituacao(1);
 
-                getFacade().create(current);
+                getFacade().emprestar(current, current.getLivro());
             
             // FIM FOR
             
@@ -129,15 +141,56 @@ public class EmprestimoController implements Serializable {
             
             // Selecionar o livro a ser devolvido.
             // OU devolver todos
-            // Alterar a data de entrega, alterar a disponibilidade do livro
             // Calcular se existe atraso, apresentar mensagem de livro devolvido com atraso.
             
+            // Calcula a diferença de dias entre a entrega e a data prevista
+            long dias = calcularAtraso(current);
+
+            // Se for positivo quer dizer que está sendo entregue com atraso
+            // ATRASO
+            if(dias > 0)
+            {
+                // Informar que foi entregue com atraso
+            }
+            // EM DIA
+            else
+            {
+                // Informar que foi entregue em dia
+            }
+            
+            // Atualiza a data de entrega
+            current.setDataentrega(new Date());
+            
+            //Atualizar a disponibilidade do livro
+            current.getLivro().setSituacao(0);
+            
+            // Atualiza o emprestimo
+            getFacade().devolver(current, current.getLivro());
+            
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("resources/Bundle").getString("EmprestimoDevolvido"));
-            return prepareCreate();
+            return prepareViewDevolver();
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("resources/Bundle").getString("PersistenceErrorOccured"));
             return null;
         }
+    }
+    
+    public String prepareListDevolverUsuario() {
+        recreateModel();
+        // Trazer somente os livros que estão emprestados com o usuário.
+        return "ListDevolver";
+    }
+    
+    // Calcula se tem atraso na devolução de um livro emprestado
+    private static long calcularAtraso(Emprestimo emp)
+    {
+        return getDateDiff(emp.getDataprevista(), new Date(), TimeUnit.DAYS);
+    }
+    
+    // Calcula a diferença entre duas datas e retorna na unidade de tempo enviada por parâmetro
+    private static long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
+        long diffInMillies = date2.getTime() - date1.getTime();
+        return timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
     }
 
     public String prepareEdit() {

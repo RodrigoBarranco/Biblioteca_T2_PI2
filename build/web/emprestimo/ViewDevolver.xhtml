@@ -15,8 +15,10 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputText value="#{bundle.ViewEmprestimoLabel_id}"/>
-                    <h:outputText value="#{emprestimoController.selected.id}" title="#{bundle.ViewEmprestimoTitle_id}"/>
+                    <h:outputText value="#{bundle.ViewEmprestimoLabel_cliente}"/>
+                    <h:outputText value="#{emprestimoController.getNomeCliente(emprestimoController.selected.cliente)}" title="#{bundle.ViewEmprestimoTitle_cliente}"/>
+                    <h:outputText value="#{bundle.ViewEmprestimoLabel_livro}"/>
+                    <h:outputText value="#{emprestimoController.getNomeLivro(emprestimoController.selected.livro)}" title="#{bundle.ViewEmprestimoTitle_livro}"/>
                     <h:outputText value="#{bundle.ViewEmprestimoLabel_dataretirada}"/>
                     <h:outputText value="#{emprestimoController.selected.dataretirada}" title="#{bundle.ViewEmprestimoTitle_dataretirada}">
                         <f:convertDateTime pattern="MM/dd/yyyy" />
@@ -29,24 +31,18 @@
                     <h:outputText value="#{emprestimoController.selected.dataentrega}" title="#{bundle.ViewEmprestimoTitle_dataentrega}">
                         <f:convertDateTime pattern="MM/dd/yyyy" />
                     </h:outputText>
-                    <h:outputText value="#{bundle.ViewEmprestimoLabel_cliente}"/>
-                    <h:outputText value="#{emprestimoController.selected.cliente}" title="#{bundle.ViewEmprestimoTitle_cliente}"/>
-                    <h:outputText value="#{bundle.ViewEmprestimoLabel_livro}"/>
-                    <h:outputText value="#{emprestimoController.selected.livro}" title="#{bundle.ViewEmprestimoTitle_livro}"/>
+                    
                 </h:panelGrid>
                 <br />
-                <h:commandLink action="#{emprestimoController.destroyAndView}" value="#{bundle.ViewEmprestimoDestroyLink}"/>
+                <br />
+                <h:commandLink action="#{emprestimoController.devolver}" value="Confirmar devolução"/>
                 <br />
                 <br />
-                <h:link outcome="Edit" value="#{bundle.ViewEmprestimoEditLink}"/>
-                <br />
-                <h:commandLink action="#{emprestimoController.prepareCreate}" value="#{bundle.ViewEmprestimoCreateLink}" />
-                <br />
-                <h:commandLink action="#{emprestimoController.prepareList}" value="#{bundle.ViewEmprestimoShowAllLink}"/>
                 <br />
                 <br />
-                <h:link outcome="/index" value="#{bundle.ViewEmprestimoIndexLink}"/>
-
+                <h:commandLink action="#{emprestimoController.prepareListDevolverUsuario}" value="Voltar"/>
+                <br />
+                <br />
             </h:form>
         </ui:define>
     </ui:composition>

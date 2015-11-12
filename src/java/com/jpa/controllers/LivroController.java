@@ -98,8 +98,10 @@ public class LivroController implements Serializable {
 
     public String create() {
         try {
+            
             // DISPONÍVEL
             current.setSituacao(SituacaoLivro.DISPONIVEL.ordinal());
+            
             getFacade().create(current);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("resources/Bundle").getString("LivroCreated"));
             return prepareCreate();
@@ -208,7 +210,6 @@ public class LivroController implements Serializable {
     }
     
     public SelectItem[] getLivrosDisponiveis() {
-        // EXPRESSÃO LAMBDA
         return getSelectItemsLivro(ejbFacade.findAll().stream().filter(l -> l.getSituacao()==0).collect(Collectors.toList()), true);
     }
     

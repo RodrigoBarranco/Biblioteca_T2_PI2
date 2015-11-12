@@ -6,6 +6,7 @@
 package com.jpa.sessions;
 
 import com.jpa.entities.Emprestimo;
+import com.jpa.entities.Livro;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,4 +29,13 @@ public class EmprestimoFacade extends AbstractFacade<Emprestimo> {
         super(Emprestimo.class);
     }
     
+    public void devolver(Emprestimo entity, Livro l) {
+        getEntityManager().merge(entity);
+        getEntityManager().merge(l);
+    }
+    
+    public void emprestar(Emprestimo e, Livro l) {
+        getEntityManager().persist(e);
+        getEntityManager().merge(l);
+    }
 }
