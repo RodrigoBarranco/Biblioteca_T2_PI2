@@ -36,9 +36,9 @@
                             <f:facet name="header">
                                 <h:outputText value="Admin"/>
                             </f:facet>
-                            <h:outputText value="#{usuarioController.getAdmin(item.admin)}"/>
+                            <h:outputText value="#{usuarioController.getAdmin()}"/>
                         </h:column>
-                        <h:column>
+                        <h:column rendered="#{usuarioController.isAdmin()}">
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
@@ -47,7 +47,7 @@
                     </h:dataTable>
                 </h:panelGroup>
                 <br />
-                <h:commandLink action="#{usuarioController.prepareCreate}" value="#{bundle.ListUsuarioCreateLink}"/>
+                <h:commandLink action="#{usuarioController.prepareCreate}" rendered="#{usuarioController.isAdmin()}" value="#{bundle.ListUsuarioCreateLink}"/>
                 <br />
                 <br />
                 <h:link outcome="/home" value="#{bundle.ListUsuarioIndexLink}"/>

@@ -201,9 +201,9 @@ public class UsuarioController implements Serializable {
         return items;
     }
     
-    public String getAdmin(int admin)
+    public String getAdmin()
     {
-        return admin==1 ? "Sim" : "Não";
+        return isAdmin() ? "Sim" : "Não";
     }
 
     public SelectItem[] getItemsAvailableSelectMany() {
