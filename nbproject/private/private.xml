@@ -3,14 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/RODRIGO/Desktop/Biblioteca_T2/web/emprestimo/Create.xhtml</file>
-            <file>file:/C:/Users/RODRIGO/Desktop/Biblioteca_T2/web/emprestimo/ListDevolver.xhtml</file>
-            <file>file:/C:/Users/RODRIGO/Desktop/Biblioteca_T2/web/emprestimo/List.xhtml</file>
-            <file>file:/C:/Users/RODRIGO/Desktop/Biblioteca_T2/src/java/resources/Bundle.properties</file>
-            <file>file:/C:/Users/RODRIGO/Desktop/Biblioteca_T2/src/java/com/jpa/sessions/EmprestimoFacade.java</file>
-            <file>file:/C:/Users/RODRIGO/Desktop/Biblioteca_T2/src/java/com/jpa/sessions/AbstractFacade.java</file>
-            <file>file:/C:/Users/RODRIGO/Desktop/Biblioteca_T2/src/java/com/jpa/controllers/EmprestimoController.java</file>
-            <file>file:/C:/Users/RODRIGO/Desktop/Biblioteca_T2/web/emprestimo/ViewDevolver.xhtml</file>
+            <file>file:/C:/Users/RODRIGO/Desktop/Biblioteca_T2/src/java/com/jpa/controllers/LoginBean.java</file>
+            <file>file:/C:/Users/RODRIGO/Desktop/Biblioteca_T2/src/java/com/jpa/entities/Usuario.java</file>
+            <file>file:/C:/Users/RODRIGO/Desktop/Biblioteca_T2/src/java/FiltroAcesso.java</file>
         </group>
     </open-files>
 </project-private>

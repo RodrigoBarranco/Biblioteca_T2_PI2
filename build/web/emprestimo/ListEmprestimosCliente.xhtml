@@ -1,12 +1,78 @@
-<?xml version='1.0' encoding='UTF-8' ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-    </h:body>
-</html>
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateEmprestimoTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="1">
+                    
+                    <h:outputLabel value="#{bundle.CreateEmprestimoLabel_cliente}" for="cliente" />
+                    <h:selectOneMenu valueChangeListener="#{emprestimoController.changeCliente()}" onchange="submit()" id="cliente" value="#{emprestimoController.selected.cliente}" title="#{bundle.CreateEmprestimoTitle_cliente}" required="true" requiredMessage="#{bundle.CreateEmprestimoRequiredMessage_cliente}">
+                        <f:selectItems value="#{clienteController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    
+                    <h:panelGroup rendered="#{emprestimoController.items.rowCount > 0}">
+                    <h:commandLink action="#{emprestimoController.previous}" value="#{bundle.Previous} #{emprestimoController.pagination.pageSize}" rendered="#{emprestimoController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{emprestimoController.next}" value="#{bundle.Next} #{emprestimoController.pagination.pageSize}" rendered="#{emprestimoController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{emprestimoController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEmprestimoTitle_cliente}"/>
+                            </f:facet>
+                            <h:outputText value="#{emprestimoController.getNomeCliente(item.cliente)}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEmprestimoTitle_livro}"/>
+                            </f:facet>
+                            <h:outputText value="#{emprestimoController.getNomeLivro(item.livro)}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEmprestimoTitle_dataretirada}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dataretirada}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEmprestimoTitle_dataprevista}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dataprevista}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListEmprestimoTitle_dataentrega}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dataentrega}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                    </h:dataTable>
+                    </h:panelGroup>
+                </h:panelGrid>
+                
+                <br />
+                <br />
+                <br />
+                <h:commandLink action="#{emprestimoController.prepareList}" value="#{bundle.CreateEmprestimoShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -5,6 +5,7 @@
  */
 package com.jpa.sessions;
 
+import com.jpa.entities.Cliente;
 import com.jpa.entities.Emprestimo;
 import com.jpa.entities.Livro;
 import java.util.List;
@@ -38,5 +39,13 @@ public class EmprestimoFacade extends AbstractFacade<Emprestimo> {
     public void emprestar(Emprestimo e, Livro l) {
         getEntityManager().persist(e);
         getEntityManager().merge(l);
+    }
+    
+    public List<Emprestimo> findAllDevolver(Emprestimo e) {
+        return getEntityManager().createNamedQuery("Emprestimo.findByDataentregaNull").getResultList();
+    }
+    
+    public List<Emprestimo> findAllByCliente(Cliente c) {
+        return getEntityManager().createNamedQuery("Emprestimo.findByCliente").setParameter("codcliente", c).getResultList();
     }
 }

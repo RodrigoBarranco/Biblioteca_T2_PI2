@@ -15,12 +15,14 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.CreateUsuarioLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{usuarioController.selected.id}" title="#{bundle.CreateUsuarioTitle_id}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_id}"/>
                     <h:outputLabel value="#{bundle.CreateUsuarioLabel_username}" for="username" />
                     <h:inputText id="username" value="#{usuarioController.selected.username}" title="#{bundle.CreateUsuarioTitle_username}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_username}"/>
                     <h:outputLabel value="#{bundle.CreateUsuarioLabel_password}" for="password" />
-                    <h:inputText id="password" value="#{usuarioController.selected.password}" title="#{bundle.CreateUsuarioTitle_password}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_password}"/>
+                    <h:inputSecret id="password" value="#{usuarioController.selected.password}" title="#{bundle.CreateUsuarioTitle_password}" required="true" requiredMessage="#{bundle.CreateUsuarioRequiredMessage_password}"/>
+                    <h:outputLabel value="Admin" for="admin" />
+                    <h:selectOneMenu id="admin" value="#{usuarioController.selected.admin}" title="Admin" required="true" requiredMessage="Admin é obrigatório">
+                        <f:selectItems value="#{usuarioController.getAdminOptions()}"/>
+                    </h:selectOneMenu>
                 </h:panelGrid>
                 <br />
                 <h:commandLink action="#{usuarioController.create}" value="#{bundle.CreateUsuarioSaveLink}" />
@@ -31,7 +33,6 @@
                 <h:commandLink action="#{usuarioController.prepareList}" value="#{bundle.CreateUsuarioShowAllLink}" immediate="true"/>
                 <br />
                 <br />
-                <h:link outcome="/index" value="#{bundle.CreateUsuarioIndexLink}"/>
             </h:form>
         </ui:define>
     </ui:composition>

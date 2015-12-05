@@ -35,7 +35,11 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Emprestimo.findById", query = "SELECT e FROM Emprestimo e WHERE e.id = :id"),
     @NamedQuery(name = "Emprestimo.findByDataretirada", query = "SELECT e FROM Emprestimo e WHERE e.dataretirada = :dataretirada"),
     @NamedQuery(name = "Emprestimo.findByDataprevista", query = "SELECT e FROM Emprestimo e WHERE e.dataprevista = :dataprevista"),
-    @NamedQuery(name = "Emprestimo.findByDataentrega", query = "SELECT e FROM Emprestimo e WHERE e.dataentrega = :dataentrega")})
+    @NamedQuery(name = "Emprestimo.findByDataentrega", query = "SELECT e FROM Emprestimo e WHERE e.dataentrega = :dataentrega"),
+    @NamedQuery(name = "Emprestimo.findByDataentregaNull", query = "SELECT e FROM Emprestimo e WHERE e.dataentrega IS NULL"),
+    @NamedQuery(name = "Emprestimo.findByCliente", query = "SELECT e FROM Emprestimo e INNER JOIN Livro l ON l.Id = e.livro WHERE l.situacao = 1 AND e.cliente = :codcliente AND e.dataentrega IS NULL")
+})
+
 public class Emprestimo implements Serializable, Cloneable {
     private static final long serialVersionUID = 1L;
     @Id

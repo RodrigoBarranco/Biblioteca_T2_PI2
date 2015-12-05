@@ -46,17 +46,6 @@ public abstract class AbstractFacade<T> {
         return getEntityManager().createQuery(cq).getResultList();
     }
     
-    public List<T> findAllDevolver(Emprestimo e) {
-        javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
-        
-        Predicate predicate = getEntityManager().getCriteriaBuilder().isNull(cq.from(entityClass).get("dataentrega"));
-        cq.where(predicate);
-        
-        cq.select(cq.from(entityClass));
-        
-        return getEntityManager().createQuery(cq).getResultList();
-    }
-
     public List<T> findRange(int[] range) {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
         cq.select(cq.from(entityClass));

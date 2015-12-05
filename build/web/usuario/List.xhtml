@@ -34,19 +34,15 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="#{bundle.ListUsuarioTitle_password}"/>
+                                <h:outputText value="Admin"/>
                             </f:facet>
-                            <h:outputText value="#{item.password}"/>
+                            <h:outputText value="#{usuarioController.getAdmin(item.admin)}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
-                            <h:commandLink action="#{usuarioController.prepareView}" value="#{bundle.ListUsuarioViewLink}"/>
-                            <h:outputText value=" "/>
                             <h:commandLink action="#{usuarioController.prepareEdit}" value="#{bundle.ListUsuarioEditLink}"/>
-                            <h:outputText value=" "/>
-                            <h:commandLink action="#{usuarioController.destroy}" value="#{bundle.ListUsuarioDestroyLink}"/>
                         </h:column>
                     </h:dataTable>
                 </h:panelGroup>
@@ -54,7 +50,7 @@
                 <h:commandLink action="#{usuarioController.prepareCreate}" value="#{bundle.ListUsuarioCreateLink}"/>
                 <br />
                 <br />
-                <h:link outcome="/index" value="#{bundle.ListUsuarioIndexLink}"/>
+                <h:link outcome="/home" value="#{bundle.ListUsuarioIndexLink}"/>
             </h:form>
         </ui:define>
     </ui:composition>

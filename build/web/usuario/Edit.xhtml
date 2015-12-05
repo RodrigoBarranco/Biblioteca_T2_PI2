@@ -15,22 +15,21 @@
             </h:panelGroup>
             <h:form>
                 <h:panelGrid columns="2">
-                    <h:outputLabel value="#{bundle.EditUsuarioLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{usuarioController.selected.id}" title="#{bundle.EditUsuarioTitle_id}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_id}"/>
                     <h:outputLabel value="#{bundle.EditUsuarioLabel_username}" for="username" />
                     <h:inputText id="username" value="#{usuarioController.selected.username}" title="#{bundle.EditUsuarioTitle_username}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_username}"/>
                     <h:outputLabel value="#{bundle.EditUsuarioLabel_password}" for="password" />
-                    <h:inputText id="password" value="#{usuarioController.selected.password}" title="#{bundle.EditUsuarioTitle_password}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_password}"/>
+                    <h:inputSecret id="password" value="#{usuarioController.selected.password}" title="#{bundle.EditUsuarioTitle_password}" required="true" requiredMessage="#{bundle.EditUsuarioRequiredMessage_password}"/>
+                    <h:outputLabel value="Admin" for="admin" />
+                    <h:selectOneMenu id="admin" value="#{usuarioController.selected.admin}" title="Admin" required="true" requiredMessage="Admin é obrigatório">
+                        <f:selectItems value="#{usuarioController.getAdminOptions()}"/>
+                    </h:selectOneMenu>
                 </h:panelGrid>
                 <h:commandLink action="#{usuarioController.update}" value="#{bundle.EditUsuarioSaveLink}"/>
                 <br />
                 <br />
-                <h:link outcome="View" value="#{bundle.EditUsuarioViewLink}"/>
-                <br />
-                <h:commandLink action="#{usuarioController.prepareList}" value="#{bundle.EditUsuarioShowAllLink}" immediate="true"/>
+                <h:commandLink action="#{usuarioController.prepareList}" value="Listar todos os usuários" immediate="true"/>
                 <br />
                 <br />
-                <h:link outcome="/index" value="#{bundle.EditUsuarioIndexLink}" />
             </h:form>
         </ui:define>
     </ui:composition>

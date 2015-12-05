@@ -30,7 +30,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
     @NamedQuery(name = "Usuario.findById", query = "SELECT u FROM Usuario u WHERE u.id = :id"),
     @NamedQuery(name = "Usuario.findByUsername", query = "SELECT u FROM Usuario u WHERE u.username = :username"),
-    @NamedQuery(name = "Usuario.findByPassword", query = "SELECT u FROM Usuario u WHERE u.password = :password")})
+    @NamedQuery(name = "Usuario.findByPassword", query = "SELECT u FROM Usuario u WHERE u.password = :password"),
+    @NamedQuery(name = "Usuario.findByLogin", query = "SELECT u FROM Usuario u WHERE u.username = :username AND u.password = :password")})
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -48,18 +49,42 @@ public class Usuario implements Serializable {
     @Size(min = 1, max = 64)
     @Column(name = "password")
     private String password;
+    
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "admin")
+    private int admin;
+    
 
+    public boolean isAdmin()
+    {
+        return getAdmin()==1;
+    }
+    
+    
+    public int getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(int admin) {
+        this.admin = admin;
+    }
+    
     public Usuario() {
+        
     }
 
     public Usuario(Integer id) {
         this.id = id;
+        
     }
 
-    public Usuario(Integer id, String username, String password) {
+    public Usuario(Integer id, String username, String password, int admin) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.admin = admin;
+        
     }
 
     public Integer getId() {

@@ -5,7 +5,10 @@
  */
 package com.jpa.sessions;
 
+import com.jpa.entities.Cliente;
+import com.jpa.entities.Emprestimo;
 import com.jpa.entities.Usuario;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,6 +29,10 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
 
     public UsuarioFacade() {
         super(Usuario.class);
+    }
+   
+    public List<Usuario> findByLogin(Usuario u) {
+        return getEntityManager().createNamedQuery("Usuario.findByLogin").setParameter("username", u.getUsername()).setParameter("password", u.getPassword()).getResultList();
     }
     
 }

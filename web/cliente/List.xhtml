@@ -44,7 +44,7 @@
                             </f:facet>
                             <h:outputText value="#{item.telefone}"/>
                         </h:column>
-                        <h:column>
+                        <h:column rendered="#{usuarioController.isAdmin()}">
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
@@ -57,10 +57,10 @@
                 <br />
                 <br />
                 <br />
-                <h:commandLink action="#{clienteController.prepareCreate}" value="#{bundle.ListClienteCreateLink}"/>
+                <h:commandLink action="#{clienteController.prepareCreate}" rendered="#{usuarioController.isAdmin()}" value="#{bundle.ListClienteCreateLink}"/>
                 <br />
                 <br />
-                <h:link outcome="/index" value="#{bundle.ListClienteIndexLink}"/>
+                <h:link outcome="/home" value="#{bundle.ListClienteIndexLink}"/>
             </h:form>
         </ui:define>
     </ui:composition>

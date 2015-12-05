@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Biblioteca</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+        <!--<link rel="stylesheet" href="../resources/css/bootstrap.css"></link>-->
+    </h:head>
+    <h:body>
+        <p class="text-center"><h2>Biblioteca Home</h2></p>
+        <br />
+        <br />
+        <h:link outcome="/cliente/List" value="Clientes"/>
+        <br />
+        <br />
+        <h:link outcome="/livro/List" value="Livros"/>
+        <br />
+        <br />
+        <h:link outcome="/emprestimo/List" value="Emprestimos"/>
+        <br />
+        <br />
+        <h:link outcome="/usuario/List" value="Usuários"/>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <h:form>
+            <h:outputText value="Seja bem vindo #{usuarioController.selected.username}" /> <br/>
+            <h:commandLink action="#{usuarioController.realizarLogout}" value="Logout" immediate="true"/>
+        </h:form>
+    </h:body>
+
+
+
+
+</html>
+

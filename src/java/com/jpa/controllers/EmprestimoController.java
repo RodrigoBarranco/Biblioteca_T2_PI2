@@ -30,6 +30,7 @@ public class EmprestimoController implements Serializable {
     private Emprestimo current;
     private DataModel items = null;
     private boolean devolucao = false;
+    private boolean report = false;
     @EJB
     private com.jpa.sessions.EmprestimoFacade ejbFacade;
     private PaginationHelper pagination;
@@ -63,13 +64,17 @@ public class EmprestimoController implements Serializable {
                 // Adicionar condicionais de acordo com a página
                 @Override
                 public DataModel createPageDataModel() {
-                    if(!devolucao)
+                    if(!devolucao && !report)
                     {
                         return new ListDataModel(getFacade().findRange(new int[]{getPageFirstItem(), getPageFirstItem() + getPageSize()}));
                     }
-                    else
+                    else if(devolucao && !report)
                     {
                         return new ListDataModel(getFacade().findAllDevolver(current));
+                    }
+                    else
+                    {
+                        return new ListDataModel(getFacade().findAllByCliente(current.getCliente()));
                     }
                 }
             };
@@ -79,7 +84,8 @@ public class EmprestimoController implements Serializable {
     
     public void changeCliente()
     {
-        devolucao = true;
+        devolucao = false;
+        report = true;
         recreateModel(); // items = null
     }
     
@@ -95,6 +101,7 @@ public class EmprestimoController implements Serializable {
 
     public String prepareList() {
         devolucao = false;
+        report = false;
         recreateModel();
         return "List";
     }
@@ -192,12 +199,14 @@ public class EmprestimoController implements Serializable {
     
     public String prepareListDevolverUsuario() {
         devolucao = true;
+        report = false;
         recreateModel(); // items = null
         return "ListDevolver";
     }
     
     public String prepareListEmprestimosCliente() {
         devolucao = false;
+        report = false;
         recreateModel(); // items = null
         return "ListEmprestimosCliente";
     }

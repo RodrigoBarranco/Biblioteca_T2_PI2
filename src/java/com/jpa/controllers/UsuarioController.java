@@ -8,6 +8,7 @@ import com.jpa.sessions.UsuarioFacade;
 import java.io.Serializable;
 import java.util.ResourceBundle;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.component.UIComponent;
@@ -28,7 +29,20 @@ public class UsuarioController implements Serializable {
     private com.jpa.sessions.UsuarioFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    
+    private boolean logado = false;
+    private boolean administrator = false;
 
+    public boolean estaLogado()
+    {
+        return logado;
+    }
+    
+    public boolean isAdmin()
+    {
+        return administrator;
+    }
+    
     public UsuarioController() {
     }
 
@@ -179,6 +193,18 @@ public class UsuarioController implements Serializable {
         recreateModel();
         return "List";
     }
+    
+    public static SelectItem[] getAdminOptions() {
+        SelectItem[] items = new SelectItem[2];
+        items[0] = new SelectItem(0, "Não");
+        items[1] = new SelectItem(1, "Sim");
+        return items;
+    }
+    
+    public String getAdmin(int admin)
+    {
+        return admin==1 ? "Sim" : "Não";
+    }
 
     public SelectItem[] getItemsAvailableSelectMany() {
         return JsfUtil.getSelectItems(ejbFacade.findAll(), false);
@@ -226,6 +252,34 @@ public class UsuarioController implements Serializable {
             }
         }
 
+    }
+    
+    public String verificaLogin()
+    {
+        if(ejbFacade.findByLogin(current).size()>0){
+            logado = true;
+            administrator = ejbFacade.findByLogin(current).get(0).getAdmin()==1;
+            
+            return "home";
+        }
+        else{
+            FacesContext contexto = FacesContext.getCurrentInstance();
+            FacesMessage mensagem = new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, 
+                    "Login Inválido!", 
+                    "Usuário e/ou senha estão errados! Digite sua senha novamente!");
+            contexto.addMessage("mensagemLogin",mensagem);
+            
+            return "index";
+        }
+    }
+    
+    public String realizarLogout(){
+        logado=false;
+        administrator = false;
+        FacesContext contexto = FacesContext.getCurrentInstance();
+        contexto.getExternalContext().invalidateSession();
+        return("login?faces-redirect=true");
     }
 
 }

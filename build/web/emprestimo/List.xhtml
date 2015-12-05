@@ -59,16 +59,16 @@
                     </h:dataTable>
                 </h:panelGroup>
                 <br />
-                <h:commandLink action="#{emprestimoController.prepareCreate}" value="#{bundle.ListEmprestimoCreateLink}"/>
+                <h:commandLink action="#{emprestimoController.prepareCreate}" rendered="#{usuarioController.isAdmin()}" value="#{bundle.ListEmprestimoCreateLink}"/>
                 <br />
                 <br />
-                <h:commandLink action="#{emprestimoController.prepareListDevolverUsuario}" value="#{bundle.ListEmprestimoUpdateLink}"/>
+                <h:commandLink action="#{emprestimoController.prepareListDevolverUsuario}" rendered="#{usuarioController.isAdmin()}" value="#{bundle.ListEmprestimoUpdateLink}"/>
                 <br />
                 <br />
-                <h:commandLink action="#{emprestimoController.prepareListEmprestimosCliente}" value="Consultar empréstimos do cliente"/>
+                <h:commandLink action="#{emprestimoController.prepareListEmprestimosCliente}" rendered="#{usuarioController.isAdmin()}" value="Consultar livros com o cliente"/>
                 <br />
                 <br />
-                <h:link outcome="/index" value="#{bundle.ListEmprestimoIndexLink}"/>
+                <h:link outcome="/home" value="#{bundle.ListEmprestimoIndexLink}"/>
             </h:form>
         </ui:define>
     </ui:composition>

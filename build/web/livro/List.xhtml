@@ -62,7 +62,7 @@
                             </f:facet>
                             <h:outputText value="#{livroController.getSituacaoString(item.situacao)}"/>
                         </h:column>
-                        <h:column>
+                        <h:column rendered="#{usuarioController.isAdmin()}">
                             <f:facet name="header">
                                 <h:outputText value="&nbsp;"/>
                             </f:facet>
@@ -75,10 +75,10 @@
                 <br />
                 <br />
                 <br />
-                <h:commandLink action="#{livroController.prepareCreate}" value="#{bundle.ListLivroCreateLink}"/>
+                <h:commandLink action="#{livroController.prepareCreate}" rendered="#{usuarioController.isAdmin()}" value="#{bundle.ListLivroCreateLink}"/>
                 <br />
                 <br />
-                <h:link outcome="/index" value="#{bundle.ListLivroIndexLink}"/>
+                <h:link outcome="/home?faces-redirect=true" value="#{bundle.ListLivroIndexLink}"/>
             </h:form>
         </ui:define>
     </ui:composition>
